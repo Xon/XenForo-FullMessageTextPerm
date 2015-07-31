@@ -49,7 +49,7 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
             }
             else
             {
-                if ($includeMessage)
+                if ($includeMessage && !empty($params[$key]['message']))
                 {
                     $emailTitle .= '_messagetext';
 
