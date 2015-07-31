@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.0.0 Alpha 1" version_id="1000011" url="https://xenresources.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_mail" execute_order="10" callback_class="FullMessageTextPerm_Listener" callback_method="extendMail" active="1" hint="XenForo_Mail" description="Extends the XenForo_Mail class."/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions>
+      <permission permission_group_id="forum" permission_id="emailWatchIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999998"/>
+    </permissions>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="permission_forum_emailWatchIncludeMessage" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Include full message text in watched thread/forum notification emails]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications/>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
