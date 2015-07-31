@@ -2,8 +2,10 @@
 
 class FullMessageTextPerm_Listener
 {
-	public static function extendMail($class, array &$extend)
-	{
-		$extend[] = 'FullMessageTextPerm_Mail';
-	}
+    const AddonNameSpace = 'FullMessageTextPerm';
+
+    public static function load_class($class, array &$extend)
+    {
+        $extend[] = self::AddonNameSpace . '_' . $class;
+    }
 }
