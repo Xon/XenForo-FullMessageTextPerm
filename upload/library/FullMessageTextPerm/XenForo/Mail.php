@@ -30,12 +30,12 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
             if (!empty($params['receiver']['node_permission_cache']))
             {
                 $permissions = XenForo_Permission::unserializePermissions($params['receiver']['node_permission_cache']);
-                $includeMessage = XenForo_Permission::hasContentPermission($permissions, 'emailWatchIncludeMessage');
+                $includeMessage = XenForo_Permission::hasContentPermission($permissions, 'emailIncludeMessage');
             }
-            if (!empty($params['receiver']['permission_combination_id']))
+            if (strpos($emailTitle, 'conversation_') === 0 && !empty($params['receiver']['permission_combination_id']))
             {
                 $permissions = $this->_getPermissions($params['receiver']['permission_combination_id']);
-                $includeMessage = XenForo_Permission::hasPermission($permissions, 'general', 'emailAllIncludeMessage');
+                $includeMessage = XenForo_Permission::hasPermission($permissions, 'conversation', 'emailIncludeMessage');
             }
 
             if ($this->_isMessageTextTemplate($emailTitle))

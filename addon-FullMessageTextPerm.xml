@@ -16,14 +16,14 @@
   <permissions>
     <permission_groups/>
     <permissions>
-      <permission permission_group_id="forum" permission_id="emailWatchIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999998"/>
-      <permission permission_group_id="general" permission_id="emailAllIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="generalPermissions" display_order="999998"/>
+      <permission permission_group_id="conversation" permission_id="emailIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="generalPermissions" display_order="999998"/>
+      <permission permission_group_id="forum" permission_id="emailIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999998"/>
     </permissions>
     <interface_groups/>
   </permissions>
   <phrases>
-    <phrase title="permission_forum_emailWatchIncludeMessage" version_id="1000012" version_string="1.0.0 Alpha 2"><![CDATA[Full message text notification emails]]></phrase>
-    <phrase title="permission_general_emailAllIncludeMessage" version_id="1000012" version_string="1.0.0 Alpha 2"><![CDATA[Full message text notification emails (non posts/threads)]]></phrase>
+    <phrase title="permission_conversation_emailIncludeMessage" version_id="1000012" version_string="1.0.0 Alpha 2"><![CDATA[Full message text notification emails (conversation)]]></phrase>
+    <phrase title="permission_forum_emailIncludeMessage" version_id="1000012" version_string="1.0.0 Alpha 2"><![CDATA[Full message text notification emails (posts/threads)]]></phrase>
   </phrases>
   <route_prefixes/>
   <style_properties/>
