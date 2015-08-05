@@ -35,7 +35,7 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
             if (strpos($emailTitle, 'conversation_') === 0 && !empty($params['receiver']['permission_combination_id']))
             {
                 $permissions = $this->_getPermissions($params['receiver']['permission_combination_id']);
-                $includeMessage = XenForo_Permission::hasPermission($permissions, 'conversation', 'emailIncludeMessage');
+                $includeMessage = XenForo_Permission::hasPermission($permissions, 'conversation', 'emailIncludeMessage') || FullMessageTextPerm_Globals::$alwaysSendFullText;
             }
 
             if ($this->_isMessageTextTemplate($emailTitle))
