@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.0.0" version_id="1000012" url="https://xenresources.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.0.0" version_id="1000012" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
