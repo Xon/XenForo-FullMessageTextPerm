@@ -14,4 +14,6 @@ Effects the following
 - Join conversation
 - Reply Conversation
 
+Option to always send emails triggered by warning conversations in full.
+
 Thanks to kontrabass of http://www.talkbass.com 
