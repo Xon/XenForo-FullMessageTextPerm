@@ -18,4 +18,10 @@ Effects the following
 
 Option to always send emails triggered by warning conversations in full.
 
+To bulk opt-in watch thread notifications:
+```
+update xf_user_option set fmp_always_email_notify = 1;
+```
+Ensure the users have the relevent permission.
+
 Thanks to kontrabass of http://www.talkbass.com 

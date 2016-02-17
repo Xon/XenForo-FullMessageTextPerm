@@ -5,7 +5,7 @@ class FullMessageTextPerm_XenForo_DataWriter_User extends XFCP_FullMessageTextPe
     protected function _getFields()
     {
         $fields = parent::_getFields();
-        $fields['xf_user_option']['fmp_always_email_notify'] = array('type' => self::TYPE_BOOLEAN, 'default' => 1);
+        $fields['xf_user_option']['fmp_always_email_notify'] = array('type' => self::TYPE_BOOLEAN, 'default' => 0);
         return $fields;
     }
 

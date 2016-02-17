@@ -6,7 +6,7 @@ class FullMessageTextPerm_Installer
     {
         $version = isset($existingAddOn['version_id']) ? $existingAddOn['version_id'] : 0;
 
-        self::addColumn('xf_user_option', 'fmp_always_email_notify', 'tinyint(3) unsigned NOT NULL DEFAULT 1');
+        self::addColumn('xf_user_option', 'fmp_always_email_notify', 'tinyint(3) unsigned NOT NULL DEFAULT 0');
 
         return true;
     }
