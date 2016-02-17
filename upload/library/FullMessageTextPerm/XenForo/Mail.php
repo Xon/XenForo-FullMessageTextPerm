@@ -50,7 +50,7 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
                 {
                     self::$FullMessageTextTrimLength = XenForo_Application::getOptions()->FMP_TextTrimLength;
                 }
-                if (self::$FullMessageTextTrimLength&& > 0 && strlen($text) > self::$FullMessageTextTrimLength)
+                if (self::$FullMessageTextTrimLength > 0 && strlen($text) > self::$FullMessageTextTrimLength)
                 {
                     $text = XenForo_Helper_String::wholeWordTrim($text, self::$FullMessageTextTrimLength);
                     $trimText = true;
