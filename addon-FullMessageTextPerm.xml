@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.0.1" version_id="1000100" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.1.0" version_id="1010000" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="FullMessageTextPerm_Installer" install_callback_method="install" uninstall_callback_class="FullMessageTextPerm_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -7,8 +7,11 @@
   <admin_template_modifications/>
   <code_events/>
   <code_event_listeners>
-    <listener event_id="load_class" execute_order="10" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Mail" description="XenForo_Mail"/>
-    <listener event_id="load_class" execute_order="10" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
+    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Mail" description="XenForo_Mail"/>
+    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
+    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Model_ThreadWatch" description="XenForo_Model_ThreadWatch"/>
+    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_DataWriter_User" description="XenForo_DataWriter_User"/>
+    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Account" description="XenForo_ControllerPublic_Account"/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -21,27 +24,60 @@
       <sub_options></sub_options>
       <relation group_id="FullMessageTextPerm" display_order="10"/>
     </option>
+    <option option_id="FMP_TextTrimLength" edit_format="spinbox" data_type="integer" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params>min=0</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="FullMessageTextPerm" display_order="20"/>
+    </option>
+    <option option_id="fmp_allowAlwaysEmailWatched" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="FullMessageTextPerm" display_order="210"/>
+    </option>
   </optiongroups>
   <permissions>
     <permission_groups/>
     <permissions>
       <permission permission_group_id="conversation" permission_id="emailIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="generalPermissions" display_order="999998"/>
-      <permission permission_group_id="forum" permission_id="emailIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999998"/>
+      <permission permission_group_id="forum" permission_id="alwaysEmailWatchedThread" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999998"/>
+      <permission permission_group_id="forum" permission_id="emailIncludeMessage" permission_type="flag" default_value="unset" interface_group_id="forumPermissions" display_order="999997"/>
     </permissions>
     <interface_groups/>
   </permissions>
   <phrases>
+    <phrase title="fmp_always_email_watch_thread_notifications" version_id="1010000" version_string="1.1.0"><![CDATA[Always email watched thread notifications]]></phrase>
+    <phrase title="option_fmp_allowAlwaysEmailWatched" version_id="1010000" version_string="1.1.0"><![CDATA[Allow always emailing watched threads]]></phrase>
+    <phrase title="option_fmp_allowAlwaysEmailWatched_explain" version_id="1010000" version_string="1.1.0"><![CDATA[Global switch to allow always emailing watched threads.]]></phrase>
     <phrase title="option_FMP_AlwaysSendWarning" version_id="1000100" version_string="1.0.1"><![CDATA[Full Message on Warning Conversation Emails]]></phrase>
     <phrase title="option_FMP_AlwaysSendWarning_explain" version_id="1000100" version_string="1.0.1"><![CDATA[Always send the full text of a conversation created when a member if warned.]]></phrase>
+    <phrase title="option_FMP_TextTrimLength" version_id="1010000" version_string="1.1.0"><![CDATA[Maximum message text length]]></phrase>
+    <phrase title="option_FMP_TextTrimLength_explain" version_id="1010000" version_string="1.1.0"><![CDATA[The maximum number of characters, before the text is truncated. 0 means no message text is sent.]]></phrase>
     <phrase title="option_group_FullMessageTextPerm" version_id="1000100" version_string="1.0.1"><![CDATA[Full Message Text Permission]]></phrase>
     <phrase title="option_group_FullMessageTextPerm_description" version_id="1000100" version_string="1.0.1"><![CDATA[]]></phrase>
     <phrase title="permission_conversation_emailIncludeMessage" version_id="1000012" version_string="1.0.0"><![CDATA[Full message text notification emails (conversation)]]></phrase>
+    <phrase title="permission_forum_alwaysEmailWatchedThread" version_id="1010000" version_string="1.1.0"><![CDATA[Always email watched thread notifications]]></phrase>
     <phrase title="permission_forum_emailIncludeMessage" version_id="1000012" version_string="1.0.0"><![CDATA[Full message text notification emails (posts/threads)]]></phrase>
   </phrases>
   <route_prefixes/>
   <style_properties/>
-  <templates/>
-  <public_template_modifications/>
+  <templates>
+    <template title="account_preferences_fmp" version_id="1010000" version_string="1.1.0"><![CDATA[<xen:if is="{$xenOptions.fmp_allowAlwaysEmailWatched} and {$visitor.permissions.forum.alwaysEmailWatchedThread}">
+<li>
+    <label for="ctrl_fmp_always_email_notify"><input type="checkbox" name="fmp_always_email_notify" value="1" id="ctrl_fmp_always_email_notify" {xen:checked "{$visitor.fmp_always_email_notify}"} />
+        {xen:phrase fmp_always_email_watch_thread_notifications}
+    </label>
+</li>
+</xen:if>]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="account_preferences" modification_key="fmp_account_preferences" description="Full Message Preferences" execution_order="4468" enabled="1" action="preg_replace">
+      <find><![CDATA[#<xen:hook name="account_preferences_options".*?<ul>#si]]></find>
+      <replace><![CDATA[$0
+<xen:include template="account_preferences_fmp"/>]]></replace>
+    </modification>
+  </public_template_modifications>
   <bb_code_media_sites/>
   <bb_codes/>
 </addon>

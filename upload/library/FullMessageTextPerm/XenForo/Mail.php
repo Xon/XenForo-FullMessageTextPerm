@@ -4,6 +4,8 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
 {
     protected $_messageTextRegex = '/^(conversation|watched_thread|watched_forum)_([^_]*)(_messagetext){0,1}$/';
 
+    static $FullMessageTextTrimLength = null;
+
     public function __construct($emailTitle, array $params, $languageId = null)
     {
         parent::__construct($emailTitle, $params, $languageId);
@@ -38,13 +40,41 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
                 $includeMessage = XenForo_Permission::hasPermission($permissions, 'conversation', 'emailIncludeMessage') || FullMessageTextPerm_Globals::$alwaysSendFullText;
             }
 
+
+            // trim text if the full message isn't included
+            $trimText = false;
+            $text = $params[$key]['message'];
+            if (!$includeMessage)
+            {
+                if (self::$FullMessageTextTrimLength === null)
+                {
+                    self::$FullMessageTextTrimLength = XenForo_Application::getOptions()->FMP_TextTrimLength;
+                }
+                if (self::$FullMessageTextTrimLength&& > 0 && strlen($text) > self::$FullMessageTextTrimLength)
+                {
+                    $text = XenForo_Helper_String::wholeWordTrim($text, self::$FullMessageTextTrimLength);
+                    $trimText = true;
+                }
+            }
+
             if ($this->_isMessageTextTemplate($emailTitle))
             {
                 if (!$includeMessage)
                 {
-                    $emailTitle = str_replace('_messagetext', '', $emailTitle);
+                    if ($trimText)
+                    {
+                        $bbCodeParserText = XenForo_BbCode_Parser::create(XenForo_BbCode_Formatter_Base::create('Text'));
+                        $params[$key]['messageText'] = new XenForo_BbCode_TextWrapper($text, $bbCodeParserText);
 
-                    $params[$key]['messageText'] = '';
+                        $bbCodeParserHtml = XenForo_BbCode_Parser::create(XenForo_BbCode_Formatter_Base::create('HtmlEmail'));
+                        $params[$key]['messageHtml'] = new XenForo_BbCode_TextWrapper($text, $bbCodeParserHtml);
+                    }
+                    else
+                    {
+                        $emailTitle = str_replace('_messagetext', '', $emailTitle);
+                        $params[$key]['messageText'] = '';
+                        $params[$key]['messageHtml'] = '';
+                    }
                 }
             }
             else
@@ -54,10 +84,10 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
                     $emailTitle .= '_messagetext';
 
                     $bbCodeParserText = XenForo_BbCode_Parser::create(XenForo_BbCode_Formatter_Base::create('Text'));
-                    $params[$key]['messageText'] = new XenForo_BbCode_TextWrapper($params[$key]['message'], $bbCodeParserText);
+                    $params[$key]['messageText'] = new XenForo_BbCode_TextWrapper($text, $bbCodeParserText);
 
                     $bbCodeParserHtml = XenForo_BbCode_Parser::create(XenForo_BbCode_Formatter_Base::create('HtmlEmail'));
-                    $params[$key]['messageHtml'] = new XenForo_BbCode_TextWrapper($params[$key]['message'], $bbCodeParserHtml);
+                    $params[$key]['messageHtml'] = new XenForo_BbCode_TextWrapper($text, $bbCodeParserHtml);
                 }
             }
 
