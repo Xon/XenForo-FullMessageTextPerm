@@ -11,6 +11,10 @@ class FullMessageTextPerm_XenForo_Model_ThreadWatch extends XFCP_FullMessageText
             $now = XenForo_Application::$time;
             foreach($users as &$user)
             {
+                if (empty($user['fmp_always_email_notify']) || empty($user['node_permission_cache']))
+                {
+                    continue;
+                }
                 $permissions = XenForo_Permission::unserializePermissions($user['node_permission_cache']);
                 if (XenForo_Permission::hasContentPermission($permissions, 'alwaysEmailWatchedThread'))
                 {
