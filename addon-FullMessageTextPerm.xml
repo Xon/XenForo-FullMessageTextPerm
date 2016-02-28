@@ -21,7 +21,40 @@ $0]]></replace>
   </code_event_listeners>
   <cron/>
   <email_templates/>
-  <email_template_modifications/>
+  <email_template_modifications>
+    <modification template="watched_thread_reply" modification_key="fmp_watched_thread_reply" description="" execution_order="10" enabled="1" action="preg_replace" search_location="body_text">
+      <find><![CDATA[#({xen:phrase watched_thread_reply_email_text,)(.*)#si]]></find>
+      <replace><![CDATA[<xen:if is="{$receiver.fmp_always_send}">
+{xen:phrase watched_thread_reply_email_text_fmp,$2
+<xen:else/>
+$1$2
+</xen:if>]]></replace>
+    </modification>
+    <modification template="watched_thread_reply" modification_key="fmp_watched_thread_reply_html_body" description="" execution_order="10" enabled="1" action="preg_replace" search_location="body_html">
+      <find><![CDATA[#({xen:phrase watched_thread_email_html_footer_1,)(.*?}</p>)#si]]></find>
+      <replace><![CDATA[<xen:if is="{$receiver.fmp_always_send}">
+{xen:phrase watched_thread_email_html_footer_1_fmp,$2
+<xen:else/>
+$1$2
+</xen:if>]]></replace>
+    </modification>
+    <modification template="watched_thread_reply_messagetext" modification_key="fmp_watched_thread_reply_messagetext_htmlbody" description="" execution_order="10" enabled="1" action="preg_replace" search_location="body_html">
+      <find><![CDATA[#({xen:phrase watched_thread_email_html_footer_1,)(.*?}</p>)#si]]></find>
+      <replace><![CDATA[<xen:if is="{$receiver.fmp_always_send}">
+{xen:phrase watched_thread_email_html_footer_1_fmp,$2
+<xen:else/>
+$1$2
+</xen:if>]]></replace>
+    </modification>
+    <modification template="watched_thread_reply_messagetext" modification_key="fmp_watched_thread_reply_messagetext_textbody" description="" execution_order="10" enabled="1" action="preg_replace" search_location="body_text">
+      <find><![CDATA[#({xen:phrase watched_thread_reply_messagetext_email_text,)(.*)#si]]></find>
+      <replace><![CDATA[<xen:if is="{$receiver.fmp_always_send}">
+{xen:phrase watched_thread_reply_messagetext_email_text_fmp,$2
+<xen:else/>
+$1$2
+</xen:if>]]></replace>
+    </modification>
+  </email_template_modifications>
   <optiongroups>
     <group group_id="FullMessageTextPerm" display_order="51" debug_only="0"/>
     <option option_id="FMP_AlwaysSendWarning" edit_format="onoff" data_type="boolean" can_backup="1">
@@ -65,6 +98,54 @@ $0]]></replace>
     <phrase title="permission_conversation_emailIncludeMessage" version_id="1000012" version_string="1.0.0"><![CDATA[Full message text notification emails (conversation)]]></phrase>
     <phrase title="permission_forum_alwaysEmailWatchedThread" version_id="1010000" version_string="1.1.0"><![CDATA[Always email watched thread notifications]]></phrase>
     <phrase title="permission_forum_emailIncludeMessage" version_id="1000012" version_string="1.0.0"><![CDATA[Full message text notification emails (posts/threads)]]></phrase>
+    <phrase title="watched_thread_email_html_footer_1_fmp" version_id="1010000" version_string="1.1.0"><![CDATA[This message was sent to you because you opted to watch the thread {thread} at {board} with email notification of new replies.]]></phrase>
+    <phrase title="watched_thread_reply_email_text_fmp" version_id="1010000" version_string="1.1.0"><![CDATA[{receiver_username},
+
+{username} replied to a thread you are watching at {board_title}.
+
+	"{title}"
+
+----------------------------------------------------------------------
+
+To view this thread, click here:
+{view_link}
+
+----------------------------------------------------------------------
+
+This message was sent to you because you opted to watch the thread "{title}" at {board_title} with email notification of new replies.
+
+To disable emails from this thread:
+{disable_this_link}
+
+To disable all emails:
+{disable_all_link}
+
+{board_link}]]></phrase>
+    <phrase title="watched_thread_reply_messagetext_email_text_fmp" version_id="1010000" version_string="1.1.0"><![CDATA[{receiver_username},
+
+{username} replied to a thread you are watching at {board_title}.
+
+	"{title}"
+
+This is the message they posted:
+----------------------------------------------------------------------
+{message}
+----------------------------------------------------------------------
+
+To view this thread, click here:
+{view_link}
+
+----------------------------------------------------------------------
+
+This message was sent to you because you opted to watch the thread "{title}" at {board_title} with email notification of new replies.
+
+To disable emails from this thread:
+{disable_this_link}
+
+To disable all emails:
+{disable_all_link}
+
+{board_link}]]></phrase>
   </phrases>
   <route_prefixes/>
   <style_properties/>

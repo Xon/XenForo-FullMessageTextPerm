@@ -19,6 +19,7 @@ class FullMessageTextPerm_XenForo_Model_ThreadWatch extends XFCP_FullMessageText
                 if (XenForo_Permission::hasContentPermission($permissions, 'alwaysEmailWatchedThread'))
                 {
                     $user['thread_read_date'] = $now;
+                    $user['fmp_always_send'] = true;
                 }
             }
         }
