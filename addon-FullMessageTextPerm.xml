@@ -22,6 +22,7 @@ $0]]></replace>
     <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Mail" description="XenForo_Mail"/>
     <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Account" description="XenForo_ControllerPublic_Account"/>
     <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
+    <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerAdmin_User" description="XenForo_ControllerAdmin_User"/>
     <listener event_id="load_class_datawriter" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_DataWriter_User" description="XenForo_DataWriter_User"/>
     <listener event_id="load_class_model" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Model_ThreadWatch" description="XenForo_Model_ThreadWatch"/>
   </code_event_listeners>
