@@ -13,8 +13,8 @@ $0]]></replace>
     </modification>
     <modification template="user_edit" modification_key="fmp_user_edit" description="" execution_order="4468" enabled="1" action="preg_replace">
       <find><![CDATA[#[\t ]*<xen:option name="email_on_conversation".*?</xen:option>#]]></find>
-      <replace><![CDATA[<xen:option name="fmp_always_email_notify" selected="{$user.fmp_always_email_notify}" readonly="!{$xenOptions.fmp_allowAlwaysEmailWatched}">{xen:phrase fmp_always_email_watch_thread_notifications}</xen:option>
-$0]]></replace>
+      <replace><![CDATA[$0
+<xen:option name="fmp_always_email_notify" selected="{$user.fmp_always_email_notify}" readonly="!{$xenOptions.fmp_allowAlwaysEmailWatched}">{xen:phrase fmp_always_email_watch_thread_notifications}</xen:option>]]></replace>
     </modification>
   </admin_template_modifications>
   <code_events/>
