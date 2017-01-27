@@ -11,11 +11,9 @@ class FullMessageTextPerm_XenForo_DataWriter_User extends XFCP_FullMessageTextPe
 
     protected function _preSave()
     {
-        if (!empty(FullMessageTextPerm_Globals::$PublicAccountController))
+        if (FullMessageTextPerm_Globals::$alwaysEmailNotify !== null)
         {
-            $input = FullMessageTextPerm_Globals::$PublicAccountController->getInput();
-            $fmp_always_email_notify = $input->filterSingle('fmp_always_email_notify', XenForo_Input::UINT);
-            $this->set('fmp_always_email_notify', $fmp_always_email_notify);
+            $this->set('fmp_always_email_notify', FullMessageTextPerm_Globals::$alwaysEmailNotify);
         }
 
         parent::_preSave();

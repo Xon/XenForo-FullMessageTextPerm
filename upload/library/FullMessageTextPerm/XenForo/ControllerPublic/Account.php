@@ -4,8 +4,7 @@ class FullMessageTextPerm_XenForo_ControllerPublic_Account extends XFCP_FullMess
 {
     public function actionPreferencesSave()
     {
-        FullMessageTextPerm_Globals::$PublicAccountController = $this;
-
+        FullMessageTextPerm_Globals::$alwaysEmailNotify = $this;
         return parent::actionPreferencesSave();
     }
 }

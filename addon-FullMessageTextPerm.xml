@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.1.0" version_id="1010002" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="FullMessageTextPerm_Installer" install_callback_method="install" uninstall_callback_class="FullMessageTextPerm_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.2.0" version_id="1020000" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="FullMessageTextPerm_Installer" install_callback_method="install" uninstall_callback_class="FullMessageTextPerm_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
   <admin_templates/>
   <admin_template_modifications>
     <modification template="option_template_registrationDefaults" modification_key="fmp_option_template_registrationDefaults" description="" execution_order="4468" enabled="1" action="str_replace">
-      <find><![CDATA[</xen:checkbox>]]></find>
+      <find><![CDATA[</xen:checkbox>
+<br />]]></find>
       <replace><![CDATA[<xen:option name="{$fieldPrefix}[{$preparedOption.option_id}][fmp_always_email_notify]" selected="{$value.fmp_always_email_notify}">{xen:phrase fmp_always_email_watch_thread_notifications}</xen:option>
+$0]]></replace>
+    </modification>
+    <modification template="user_edit" modification_key="fmp_user_edit" description="" execution_order="4468" enabled="1" action="preg_replace">
+      <find><![CDATA[#[\t ]*<xen:option name="email_on_conversation".*?</xen:option>#]]></find>
+      <replace><![CDATA[<xen:option name="fmp_always_email_notify" selected="{$user.fmp_always_email_notify}" readonly="!{$xenOptions.fmp_allowAlwaysEmailWatched}">{xen:phrase fmp_always_email_watch_thread_notifications}</xen:option>
 $0]]></replace>
     </modification>
   </admin_template_modifications>
   <code_events/>
   <code_event_listeners>
     <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Mail" description="XenForo_Mail"/>
-    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
-    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Model_ThreadWatch" description="XenForo_Model_ThreadWatch"/>
-    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_DataWriter_User" description="XenForo_DataWriter_User"/>
-    <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Account" description="XenForo_ControllerPublic_Account"/>
+    <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Account" description="XenForo_ControllerPublic_Account"/>
+    <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
+    <listener event_id="load_class_datawriter" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_DataWriter_User" description="XenForo_DataWriter_User"/>
+    <listener event_id="load_class_model" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Model_ThreadWatch" description="XenForo_Model_ThreadWatch"/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
