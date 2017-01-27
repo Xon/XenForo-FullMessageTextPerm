@@ -166,6 +166,11 @@ To disable all emails:
 </xen:if>]]></template>
   </templates>
   <public_template_modifications>
+    <modification template="account_contact_details" modification_key="fmp_account_contact_details" description="Full Message Preferences" execution_order="4468" enabled="1" action="preg_replace">
+      <find><![CDATA[#(<xen:hook name="account_contact_details_messaging".*?)(\s*)(</xen:hook>)#si]]></find>
+      <replace><![CDATA[$1$2<xen:include template="account_preferences_fmp"/>
+$2$3]]></replace>
+    </modification>
     <modification template="account_preferences" modification_key="fmp_account_preferences" description="Full Message Preferences" execution_order="4468" enabled="1" action="preg_replace">
       <find><![CDATA[#<xen:hook name="account_preferences_options".*?<ul>#si]]></find>
       <replace><![CDATA[$0

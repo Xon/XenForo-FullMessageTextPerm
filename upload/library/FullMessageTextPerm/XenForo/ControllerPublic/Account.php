@@ -7,4 +7,10 @@ class FullMessageTextPerm_XenForo_ControllerPublic_Account extends XFCP_FullMess
         FullMessageTextPerm_Globals::$alwaysEmailNotify = $this->_input->filterSingle('fmp_always_email_notify', XenForo_Input::UINT);
         return parent::actionPreferencesSave();
     }
+
+    public function actionContactDetailsSave()
+    {
+        FullMessageTextPerm_Globals::$alwaysEmailNotify = $this->_input->filterSingle('fmp_always_email_notify', XenForo_Input::UINT);
+        return parent::actionContactDetailsSave();
+    }
 }
