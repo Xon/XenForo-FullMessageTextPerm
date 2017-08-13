@@ -4,6 +4,7 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
 {
     protected $_messageTextRegex = '/^(conversation|watched_thread|watched_forum)_([^_]*)(_messagetext){0,1}$/';
 
+    static $PartialMessageTextTrimLength = null;
     static $FullMessageTextTrimLength = null;
 
     public function __construct($emailTitle, array $params, $languageId = null)
@@ -46,15 +47,36 @@ class FullMessageTextPerm_XenForo_Mail extends XFCP_FullMessageTextPerm_XenForo_
             $text = $params[$key]['message'];
             if (!$includeMessage)
             {
+                if (self::$PartialMessageTextTrimLength === null)
+                {
+                    self::$PartialMessageTextTrimLength = XenForo_Application::getOptions()->FMP_TextTrimLength;
+                }
+                if (self::$PartialMessageTextTrimLength == 0)
+                {
+                    $emailTitle = preg_replace('/_messagetext$/', '', $emailTitle);
+                }
+                else if (self::$PartialMessageTextTrimLength > 0 && strlen($text) > self::$PartialMessageTextTrimLength)
+                {
+                    $text = XenForo_Helper_String::wholeWordTrim($text, self::$PartialMessageTextTrimLength);
+                    $trimText = true;
+                }
+            }
+            else
+            {
                 if (self::$FullMessageTextTrimLength === null)
                 {
-                    self::$FullMessageTextTrimLength = XenForo_Application::getOptions()->FMP_TextTrimLength;
+                    self::$FullMessageTextTrimLength = XenForo_Application::getOptions()->FMP_TextTrimLengthFull;
                 }
-                if (self::$FullMessageTextTrimLength > 0 && strlen($text) > self::$FullMessageTextTrimLength)
+                if (self::$FullMessageTextTrimLength == 0)
+                {
+                    $emailTitle = preg_replace('/_messagetext$/', '', $emailTitle);
+                }
+                else if (self::$FullMessageTextTrimLength > 0 && strlen($text) > self::$FullMessageTextTrimLength)
                 {
                     $text = XenForo_Helper_String::wholeWordTrim($text, self::$FullMessageTextTrimLength);
                     $trimText = true;
                 }
+
             }
 
             if ($this->_isMessageTextTemplate($emailTitle))

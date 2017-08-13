@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.2.0" version_id="1020000" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="FullMessageTextPerm_Installer" install_callback_method="install" uninstall_callback_class="FullMessageTextPerm_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="FullMessageTextPerm" title="Full Message Text Permission" version_string="1.3.0" version_id="1030000" url="https://xenforo.com/community/resources/full-message-text-permission.4468/" install_callback_class="FullMessageTextPerm_Installer" install_callback_method="install" uninstall_callback_class="FullMessageTextPerm_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -20,9 +20,9 @@ $0]]></replace>
   <code_events/>
   <code_event_listeners>
     <listener event_id="load_class" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Mail" description="XenForo_Mail"/>
+    <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerAdmin_User" description="XenForo_ControllerAdmin_User"/>
     <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Account" description="XenForo_ControllerPublic_Account"/>
     <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerPublic_Member" description="XenForo_ControllerPublic_Member"/>
-    <listener event_id="load_class_controller" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_ControllerAdmin_User" description="XenForo_ControllerAdmin_User"/>
     <listener event_id="load_class_datawriter" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_DataWriter_User" description="XenForo_DataWriter_User"/>
     <listener event_id="load_class_model" execute_order="4468" callback_class="FullMessageTextPerm_Listener" callback_method="load_class" active="1" hint="XenForo_Model_ThreadWatch" description="XenForo_Model_ThreadWatch"/>
   </code_event_listeners>
@@ -72,9 +72,15 @@ $1$2
     </option>
     <option option_id="FMP_TextTrimLength" edit_format="spinbox" data_type="integer" can_backup="1">
       <default_value>0</default_value>
-      <edit_format_params>min=0</edit_format_params>
+      <edit_format_params>min=-1</edit_format_params>
       <sub_options></sub_options>
       <relation group_id="FullMessageTextPerm" display_order="20"/>
+    </option>
+    <option option_id="FMP_TextTrimLengthFull" edit_format="spinbox" data_type="integer" can_backup="1">
+      <default_value>-1</default_value>
+      <edit_format_params>min=-1</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="FullMessageTextPerm" display_order="30"/>
     </option>
     <option option_id="fmp_allowAlwaysEmailWatched" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value>0</default_value>
@@ -98,8 +104,16 @@ $1$2
     <phrase title="option_fmp_allowAlwaysEmailWatched_explain" version_id="1010000" version_string="1.1.0"><![CDATA[Global switch to allow always emailing watched threads.]]></phrase>
     <phrase title="option_FMP_AlwaysSendWarning" version_id="1000100" version_string="1.0.1"><![CDATA[Full Message on Warning Conversation Emails]]></phrase>
     <phrase title="option_FMP_AlwaysSendWarning_explain" version_id="1000100" version_string="1.0.1"><![CDATA[Always send the full text of a conversation created when a member if warned.]]></phrase>
-    <phrase title="option_FMP_TextTrimLength" version_id="1010000" version_string="1.1.0"><![CDATA[Maximum message text length]]></phrase>
-    <phrase title="option_FMP_TextTrimLength_explain" version_id="1010000" version_string="1.1.0"><![CDATA[The maximum number of characters, before the text is truncated. 0 means no message text is sent.]]></phrase>
+    <phrase title="option_FMP_TextTrimLength" version_id="1030000" version_string="1.3.0"><![CDATA[Max partial message text length]]></phrase>
+    <phrase title="option_FMP_TextTrimLengthFull" version_id="1030000" version_string="1.3.0"><![CDATA[Max all message text length]]></phrase>
+    <phrase title="option_FMP_TextTrimLengthFull_explain" version_id="1030000" version_string="1.3.0"><![CDATA[If the user does have permission to include the full message text; this number of characters of the message can be send instead.<br/>
+<br/>
+0 means no message text is sent.<br/>
+-1 means no message text is sent.]]></phrase>
+    <phrase title="option_FMP_TextTrimLength_explain" version_id="1030000" version_string="1.3.0"><![CDATA[If the user does not have permission to include the full message text; this number of characters of the message can be send instead.<br/>
+<br/>
+0 means no message text is sent.<br/>
+-1 means no message text is sent.]]></phrase>
     <phrase title="option_group_FullMessageTextPerm" version_id="1000100" version_string="1.0.1"><![CDATA[Full Message Text Permission]]></phrase>
     <phrase title="option_group_FullMessageTextPerm_description" version_id="1000100" version_string="1.0.1"><![CDATA[]]></phrase>
     <phrase title="permission_conversation_emailIncludeMessage" version_id="1000012" version_string="1.0.0"><![CDATA[Full message text notification emails (conversation)]]></phrase>
